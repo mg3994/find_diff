@@ -21,7 +21,7 @@ class ProfileWidget extends StatelessWidget {
   final Widget? child;
   final UserDetail user;
   final void Function()? backOnTap;
-  final Widget? topCenterWidget;
+  final Widget? backtxt;
 
   const ProfileWidget({
     super.key,
@@ -34,8 +34,7 @@ class ProfileWidget extends StatelessWidget {
     required this.trips,
     this.child,
     this.backOnTap,
-    required this.user,
-    this.topCenterWidget,
+    required this.user, this.backtxt,
   });
 
   @override
@@ -47,9 +46,7 @@ class ProfileWidget extends StatelessWidget {
           width: size.width,
           height: size.height,
           decoration: BoxDecoration(
-            // color: Theme.of(context).primaryColor,
-            color: AppColors
-                .onSecondaryContainerLight, // That Brown Color on Main Menu top
+            color: AppColors.onSecondaryContainerLight,
             border: Border(
               bottom: BorderSide(color: Theme.of(context).primaryColorLight),
             ),
@@ -75,66 +72,51 @@ class ProfileWidget extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    
                     Row(
-                      // mainAxisSize: MainAxisSize.min,
-                      // mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: NavigationIconWidget(
-                            icon: InkWell(
-                              onTap: backOnTap ??
-                                  () {
-                                    Navigator.pop(context, user);
-
-                                    // if (context.read<HomeBloc>().userData != null) {
-                                    //   Navigator.pushNamed(
-                                    //           context, AccountPage.routeName,
-                                    //           arguments: AccountPageArguments(
-                                    //               userData: context
-                                    //                   .read<HomeBloc>()
-                                    //                   .userData!))
-                                    //       .then(
-                                    //     (value) {
-                                    //       if (!context.mounted) return;
-                                    //       context
-                                    //           .read<HomeBloc>()
-                                    //           .add(GetDirectionEvent());
-                                    //       if (value != null) {
-                                    //         context.read<HomeBloc>().userData =
-                                    //             value as UserDetail;
-                                    //         context.read<HomeBloc>().add(UpdateEvent());
-                                    //       }
-                                    //     },
-                                    //   );
-                                    // }
-                                  },
-                              child: Icon(CupertinoIcons.back,
-                                  size: 18,
-                                  color: Theme.of(context).primaryColorDark),
-                            ),
-                            isShadowWidget: true,
-                          ),
+                                                  icon: InkWell(
+                           onTap: backOnTap ??
+                                              () {
+                                                Navigator.pop(context, user);
+                                              
+                            // if (context.read<HomeBloc>().userData != null) {
+                            //   Navigator.pushNamed(
+                            //           context, AccountPage.routeName,
+                            //           arguments: AccountPageArguments(
+                            //               userData: context
+                            //                   .read<HomeBloc>()
+                            //                   .userData!))
+                            //       .then(
+                            //     (value) {
+                            //       if (!context.mounted) return;
+                            //       context
+                            //           .read<HomeBloc>()
+                            //           .add(GetDirectionEvent());
+                            //       if (value != null) {
+                            //         context.read<HomeBloc>().userData =
+                            //             value as UserDetail;
+                            //         context.read<HomeBloc>().add(UpdateEvent());
+                            //       }
+                            //     },
+                            //   );
+                            // }
+                          },
+                          child: Icon(CupertinoIcons.back,
+                              size: 18,
+                              color: Theme.of(context).primaryColorDark),
+                                                  ),
+                                                  isShadowWidget: true,
+                                                ),
                         ),
-                        if (topCenterWidget != null) topCenterWidget!,
-                        // Container(
-                        //   height: size.width * 0.1,
-                        //   width: size.width * 0.1,
-                        //   decoration: const BoxDecoration(shape: BoxShape.circle),
-                        //   child: const Icon(CupertinoIcons.back,
-                        //       // color: Theme.of(context).primaryColorLight,
-                        //       color: AppColors.whiteText),
-                        // ),
-                        // Text(
-                        //   !isEditPage
-                        //       ? AppLocalizations.of(context)!.back.toLowerCase()
-                        //       : AppLocalizations.of(context)!.personalInformation,
-                        //   style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                        //       // color: Theme.of(context).primaryColorLight,
-                        //       color: AppColors.whiteText,fontSize: 20),
-                        // ),
+ if(backtxt != null)   backtxt! ,
+
                       ],
                     ),
+                     
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Transform.scale(
@@ -147,7 +129,7 @@ class ProfileWidget extends StatelessWidget {
                           inactiveTrackColor:
                               Theme.of(context).primaryColorDark,
                           activeThumbImage: const AssetImage(AppImages.sun),
-                          inactiveThumbImage: const AssetImage(AppImages.moon),
+                          inactiveThumbImage : const AssetImage(AppImages.moon),
                           materialTapTargetSize:
                               MaterialTapTargetSize.shrinkWrap,
                           onChanged: (value) async {
@@ -235,15 +217,15 @@ class ProfileWidget extends StatelessWidget {
           left: 0,
           right: 0,
           child: ClipRRect(
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(30),
-              // topRight: Radius.circular(15), // Uncomment if needed
-            ),
+    borderRadius: const BorderRadius.only(
+      topLeft: Radius.circular(30),
+      // topRight: Radius.circular(15), // Uncomment if needed
+    ),
             child: Container(
               decoration: BoxDecoration(
                 color: Theme.of(context).scaffoldBackgroundColor,
                 // borderRadius: const BorderRadius.only(
-                //   // topLeft: Radius.circular(15),
+                //   topLeft: Radius.circular(30),
                 //   // topRight: Radius.circular(15),
                 // ),
               ),
@@ -253,7 +235,7 @@ class ProfileWidget extends StatelessWidget {
         ),
         if (!isEditPage)
           Positioned(
-            top: size.height * 0.25,
+            top: size.height * 0.25, // change it to make it down
             left: size.width * 0.05,
             right: size.width * 0.05,
             child: Container(
@@ -274,26 +256,27 @@ class ProfileWidget extends StatelessWidget {
                   padding: EdgeInsets.symmetric(
                       horizontal: 8, vertical: size.width * 0.02),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    spacing: 15,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       if (showWallet) ...[
                         Container(
-                          decoration: BoxDecoration(
-                              color: Theme.of(context).cardColor,
-                              borderRadius: BorderRadius.circular(5),
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Theme.of(context).shadowColor,
-                                    spreadRadius: 2.0,
-                                    blurRadius: 2.0)
-                              ]),
+                                        decoration: BoxDecoration(
+                                    color: Theme.of(context).cardColor,
+
+                  borderRadius: BorderRadius.circular(5),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Theme.of(context).shadowColor,
+                        spreadRadius: 2.0,
+                        blurRadius: 2.0)
+                  ]),
                           width: size.width * 0.8 / 3,
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                             mainAxisAlignment: MainAxisAlignment.spaceBetween, 
                             children: [
-                              const SizedBox(
-                                  height: 1), // Adds space from the top
+                               const SizedBox(height: 1), // Adds space from the top
                               MyText(
                                   text: AppLocalizations.of(context)!
                                       .walletBalance,
@@ -305,7 +288,7 @@ class ProfileWidget extends StatelessWidget {
                                           color: Theme.of(context)
                                               .disabledColor
                                               .withOpacity(0.5),
-                                          fontSize: 14)),
+                                          fontSize: 10)),
                               MyText(
                                   text: walletBalance,
                                   textStyle: Theme.of(context)
@@ -315,45 +298,44 @@ class ProfileWidget extends StatelessWidget {
                                           // color: Theme.of(context).primaryColor
                                           color: Theme.of(context)
                                               .primaryColorDark)),
-                              ClipRRect(
-                                borderRadius: const BorderRadius.only(
-                                  bottomLeft: Radius.circular(5),
-                                  bottomRight: Radius.circular(5),
-                                ),
-                                child: Container(
-                                  height: 3,
-                                  width: double.infinity,
-                                  color: Colors.brown,
-                                ),
-                              ),
+                                               ClipRRect(
+                                                           borderRadius: const BorderRadius.only(
+                                                             bottomLeft: Radius.circular(5),
+                                                             bottomRight: Radius.circular(5),
+                                                           ),
+                                                           child: Container(
+                                                             height: 3,
+                                                             width: double.infinity,
+                                                             color: Colors.brown,
+                                                           ),
+                                                         ),
                             ],
                           ),
                         ),
                         // Padding(
                         //   padding:
                         //       EdgeInsets.symmetric(vertical: size.width * 0.02),
-                        //   child: VerticalDivider(
+                        //   child: VerticalDivider( // No Need Of Vertical Divider
                         //       color: Theme.of(context).dividerColor),
                         // ),
                       ],
                       Container(
-                        decoration: BoxDecoration(
-                            color: Theme.of(context).cardColor,
-                            borderRadius: BorderRadius.circular(5),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Theme.of(context).shadowColor,
-                                  spreadRadius: 2.0,
-                                  blurRadius: 2.0)
-                            ]),
+                                      decoration: BoxDecoration(
+                   color: Theme.of(context).cardColor,
+                  borderRadius: BorderRadius.circular(5),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Theme.of(context).shadowColor,
+                        spreadRadius: 2.0,
+                        blurRadius: 2.0)
+                  ]),
                         width: showWallet
                             ? size.width * 0.8 / 3.5
                             : size.width * 0.8 / 2,
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const SizedBox(
-                                height: 1), // Adds space from the top
+                             mainAxisAlignment: MainAxisAlignment.spaceBetween, 
+                            children: [
+                               const SizedBox(height: 1), // Adds space from the top
                             MyText(
                                 text: AppLocalizations.of(context)!.ratings,
                                 textStyle: Theme.of(context)
@@ -363,7 +345,7 @@ class ProfileWidget extends StatelessWidget {
                                         color: Theme.of(context)
                                             .disabledColor
                                             .withOpacity(0.5),
-                                        fontSize: 14)),
+                                        fontSize: 10)),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -382,17 +364,17 @@ class ProfileWidget extends StatelessWidget {
                                 )
                               ],
                             ),
-                            ClipRRect(
-                              borderRadius: const BorderRadius.only(
-                                bottomLeft: Radius.circular(5),
-                                bottomRight: Radius.circular(5),
-                              ),
-                              child: Container(
-                                height: 3,
-                                width: double.infinity,
-                                color: Colors.brown,
-                              ),
-                            ),
+                               ClipRRect(
+                                                           borderRadius: const BorderRadius.only(
+                                                             bottomLeft: Radius.circular(5),
+                                                             bottomRight: Radius.circular(5),
+                                                           ),
+                                                           child: Container(
+                                                             height: 3,
+                                                             width: double.infinity,
+                                                             color: Colors.brown,
+                                                           ),
+                                                         ),
                           ],
                         ),
                       ),
@@ -403,23 +385,22 @@ class ProfileWidget extends StatelessWidget {
                       //       color: Theme.of(context).dividerColor),
                       // ),
                       Container(
-                        decoration: BoxDecoration(
-                            color: Theme.of(context).cardColor,
-                            borderRadius: BorderRadius.circular(5),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Theme.of(context).shadowColor,
-                                  spreadRadius: 2.0,
-                                  blurRadius: 2.0)
-                            ]),
+                                      decoration: BoxDecoration(
+                   color: Theme.of(context).cardColor,
+                  borderRadius: BorderRadius.circular(5),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Theme.of(context).shadowColor,
+                        spreadRadius: 2.0,
+                        blurRadius: 2.0)
+                  ]),
                         width: showWallet
                             ? size.width * 0.8 / 3
                             : size.width * 0.8 / 2,
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const SizedBox(
-                                height: 1), // Adds space from the top
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween, 
+                            children: [
+                               const SizedBox(height: 1), // Adds space from the top
                             MyText(
                                 text: AppLocalizations.of(context)!.totalRides,
                                 textStyle: Theme.of(context)
@@ -429,7 +410,7 @@ class ProfileWidget extends StatelessWidget {
                                         color: Theme.of(context)
                                             .disabledColor
                                             .withOpacity(0.5),
-                                        fontSize: 14)),
+                                        fontSize: 10)),
                             MyText(
                                 text: trips,
                                 textStyle: Theme.of(context)
@@ -438,17 +419,17 @@ class ProfileWidget extends StatelessWidget {
                                     .copyWith(
                                         color: Theme.of(context)
                                             .primaryColorDark)),
-                            ClipRRect(
-                              borderRadius: const BorderRadius.only(
-                                bottomLeft: Radius.circular(5),
-                                bottomRight: Radius.circular(5),
-                              ),
-                              child: Container(
-                                height: 3,
-                                width: double.infinity,
-                                color: Colors.brown,
-                              ),
-                            ),
+                                               ClipRRect(
+                                                           borderRadius: const BorderRadius.only(
+                                                             bottomLeft: Radius.circular(5),
+                                                             bottomRight: Radius.circular(5),
+                                                           ),
+                                                           child: Container(
+                                                             height: 3,
+                                                             width: double.infinity,
+                                                             color: Colors.brown,
+                                                           ),
+                                                         ),
                           ],
                         ),
                       ),
