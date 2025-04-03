@@ -5,11 +5,11 @@ import '../../../../../../common/common.dart';
 import '../../../../../../core/utils/custom_text.dart';
 import '../../../../../../l10n/app_localizations.dart';
 import '../../../../application/acc_bloc.dart';
+import 'wallet_payment_gateway_list_widget.dart';
 
 class AddMoneyWalletWidget extends StatelessWidget {
   final BuildContext cont;
-  final String minWalletAmount;
-  const AddMoneyWalletWidget({super.key, required this.cont, required this.minWalletAmount});
+  const AddMoneyWalletWidget({super.key, required this.cont});
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +44,8 @@ class AddMoneyWalletWidget extends StatelessWidget {
                       width: 1.2, color: Theme.of(context).disabledColor),
                 ),
                 child: Row(
+
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Container(
                       width: size.width * 0.15,
@@ -70,6 +72,7 @@ class AddMoneyWalletWidget extends StatelessWidget {
                       width: size.width * 0.6,
                       alignment: Alignment.center,
                       child: TextField(
+                      
                         controller:
                             context.read<AccBloc>().walletAmountController,
                         onChanged: (value) {
@@ -99,8 +102,8 @@ class AddMoneyWalletWidget extends StatelessWidget {
                   InkWell(
                     onTap: () {
                       context.read<AccBloc>().walletAmountController.text =
-                          double.parse(minWalletAmount).toString();
-                      context.read<AccBloc>().addMoney = double.parse(minWalletAmount);
+                          '100';
+                      context.read<AccBloc>().addMoney = 100;
                     },
                     child: Container(
                       height: size.width * 0.11,
@@ -116,7 +119,7 @@ class AddMoneyWalletWidget extends StatelessWidget {
                       alignment: Alignment.center,
                       child: MyText(
                           text:
-                              '${context.read<AccBloc>().walletResponse!.currencySymbol.toString()}${double.parse(minWalletAmount)}'),
+                              '${context.read<AccBloc>().walletResponse?.currencySymbol.toString()}100'),
                     ),
                   ),
                   SizedBox(
@@ -125,8 +128,8 @@ class AddMoneyWalletWidget extends StatelessWidget {
                   InkWell(
                     onTap: () {
                       context.read<AccBloc>().walletAmountController.text =
-                          (double.parse(minWalletAmount) *2).toString();
-                      context.read<AccBloc>().addMoney = double.parse(minWalletAmount) * 2;
+                          '500';
+                      context.read<AccBloc>().addMoney = 500;
                     },
                     child: Container(
                       height: size.width * 0.11,
@@ -140,7 +143,7 @@ class AddMoneyWalletWidget extends StatelessWidget {
                       alignment: Alignment.center,
                       child: MyText(
                           text:
-                              '${context.read<AccBloc>().walletResponse!.currencySymbol.toString()}${double.parse(minWalletAmount) * 2}'),
+                              '${context.read<AccBloc>().walletResponse?.currencySymbol.toString()}500'),
                     ),
                   ),
                   SizedBox(
@@ -149,8 +152,8 @@ class AddMoneyWalletWidget extends StatelessWidget {
                   InkWell(
                     onTap: () {
                       context.read<AccBloc>().walletAmountController.text =
-                          (double.parse(minWalletAmount) * 3).toString();
-                      context.read<AccBloc>().addMoney = double.parse(minWalletAmount) * 3;
+                          '1000';
+                      context.read<AccBloc>().addMoney = 1000;
                     },
                     child: Container(
                       height: size.width * 0.11,
@@ -164,7 +167,7 @@ class AddMoneyWalletWidget extends StatelessWidget {
                       alignment: Alignment.center,
                       child: MyText(
                           text:
-                              '${context.read<AccBloc>().walletResponse!.currencySymbol.toString()}${double.parse(minWalletAmount) * 3}'),
+                              '${context.read<AccBloc>().walletResponse?.currencySymbol.toString()}1000'),
                     ),
                   ),
                 ],
@@ -211,7 +214,19 @@ class AddMoneyWalletWidget extends StatelessWidget {
                               .isNotEmpty &&
                           context.read<AccBloc>().addMoney != null) {
                         Navigator.pop(context);
-                        context.read<AccBloc>().add(ShowPaymentGatewayEvent());
+                        showModalBottomSheet(
+                            context: context,
+                            isScrollControlled: false,
+                            enableDrag: true,
+                            isDismissible: true,
+                            builder: (_) {
+                              return WalletPaymentGatewayListWidget(
+                                   cont: context,
+                                   walletPaymentGatways: 
+                                    context
+                                        .read<AccBloc>()
+                                        .walletPaymentGatways);
+                            });
                       }
                     },
                     child: Container(
