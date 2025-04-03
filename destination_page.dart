@@ -1,3 +1,4 @@
+import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -147,8 +148,7 @@ class _DestinationPageState extends State<DestinationPage> {
                   .addressList
                   .any((element) => element.address.isEmpty)) {
                 context.read<HomeBloc>().add(ConfirmRideAddressEvent(
-                    rideType:
-                        widget.arg.isOutstationRide ? 'outstation' : 'taxi',
+                    rideType:widget.arg.isOutstationRide ? 'outstation' : 'taxi',
                     addressList: context.read<HomeBloc>().addressList));
               }
             }
@@ -173,7 +173,7 @@ class _DestinationPageState extends State<DestinationPage> {
                 return BlocProvider.value(
                   value: homeBloc,
                   child: LeaveInstructions(
-                      cont: context,
+                    cont: context,
                       address: state.address,
                       transportType: widget.arg.transportType,
                       isReceiveParcel: widget.arg.title == 'Receive Parcel',
@@ -308,7 +308,7 @@ class _DestinationPageState extends State<DestinationPage> {
                       Center(
                         child: MyText(
                             text: state.message,
-                            // AppLocalizations.of(context)!.serviceNotAvailable,
+                                // AppLocalizations.of(context)!.serviceNotAvailable,
                             maxLines: 4),
                       ),
                     ],
@@ -364,8 +364,10 @@ class _DestinationPageState extends State<DestinationPage> {
                             Theme.of(context).scaffoldBackgroundColor,
                         leading: Padding(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 6),
+                              horizontal: 16,vertical: 6),
                           child: NavigationIconWidget(
+                            color: Theme.of(context).cardColor,
+                           
                             onTap: () {
                               Navigator.pop(context);
                             },
@@ -391,7 +393,7 @@ class _DestinationPageState extends State<DestinationPage> {
                                     //   Icons.add_outlined,
                                     //   color: Theme.of(context).primaryColor,
                                     // ),
-                                    child: Container(
+                                    child:  Container(
                                                   padding: const EdgeInsets.all(4.0),
                 decoration: BoxDecoration(
                                                        color: Theme.of(context).cardColor,
@@ -405,22 +407,16 @@ class _DestinationPageState extends State<DestinationPage> {
                     ),
                   ],
                 ),
-                                      child: 
-                                        // Icon(
-                                        //   Icons.add,
-                                        //   color: Theme.of(context).primaryColorDark,
-                                        //   size: 20,
-                                        // ),
-                                        MyText(
-                                            text: AppLocalizations.of(context)!
-                                                .addStop,
-                                            textStyle: Theme.of(context)
-                                                .textTheme
-                                                .bodyMedium!
-                                                .copyWith(
-                                                    color: Theme.of(context).primaryColorDark,
-                                                    fontWeight: FontWeight.w600)),
-                                      
+                                  child:  MyText(
+                                          text:
+                                              AppLocalizations.of(context)!.addStop,
+                                          textStyle: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall!
+                                              .copyWith(
+                                                  color: Theme.of(context)
+                                                      .primaryColorDark,
+                                                  fontWeight: FontWeight.w600)),
                                     ),
                                   ),
                                 )
@@ -620,7 +616,13 @@ class _DestinationPageState extends State<DestinationPage> {
                       );
                     },
                     separatorBuilder: (context, index) {
-                      return Divider(color: Theme.of(context).dividerColor);
+                      return          DottedLine( // ADDED: BY MG: Dotted line
+                                dashLength: 2,
+                                dashGapLength: 2,
+                                dashRadius: 1,
+                                lineThickness: 1,
+                                dashColor: Theme.of(context).dividerColor,
+                              );
                     },
                   ),
                   SizedBox(height: size.width * 0.15),
@@ -640,8 +642,8 @@ class _DestinationPageState extends State<DestinationPage> {
           boxShadow: [
             BoxShadow(
                 color: Theme.of(context).shadowColor,
-                offset: const Offset(0, 5),
-                blurRadius: 5,
+                offset: const Offset(0, 0.1),
+                blurRadius: 1,
                 spreadRadius: 1)
           ]),
       child: Padding(
@@ -683,9 +685,12 @@ class _DestinationPageState extends State<DestinationPage> {
                                             .length -
                                         1) ...[
                               Container(
-                                height: size.width * 0.05,
-                                width: size.width * 0.05,
+                                 
+                                height: size.width * 0.09,
+                                width: size.width * 0.09,
                                 decoration: BoxDecoration(
+                                                       color: Theme.of(context).cardColor,
+
                                     shape: BoxShape.circle,
                                     border: Border.all(
                                         width: 0.3,
@@ -729,12 +734,10 @@ class _DestinationPageState extends State<DestinationPage> {
                                                     : false
                                             : false,
                                         keyboardType: TextInputType.text,
-                                        fillColor: Theme.of(context)
-                                            .disabledColor
-                                            .withOpacity(0.1),
+                                        fillColor:  Theme.of(context).cardColor,
                                         enabledBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
-                                                width: 0.5,
+                                                width: 0.8,
                                                 color: Theme.of(context)
                                                     .disabledColor
                                                     .withOpacity(0.3))),
@@ -967,10 +970,9 @@ class _DestinationPageState extends State<DestinationPage> {
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color:
-                              Theme.of(context).disabledColor.withOpacity(0.1),
-                        ),
+                          borderRadius: BorderRadius.circular(4),
+                                                                           color: Theme.of(context).cardColor,
+  ),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 8, vertical: 5),
@@ -1027,10 +1029,8 @@ class _DestinationPageState extends State<DestinationPage> {
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color:
-                              Theme.of(context).disabledColor.withOpacity(0.1),
-                        ),
+                          borderRadius: BorderRadius.circular(4),
+                          color: Theme.of(context).cardColor,),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 8, vertical: 5),
@@ -1079,9 +1079,9 @@ class _DestinationPageState extends State<DestinationPage> {
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color:
-                              Theme.of(context).disabledColor.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(4),
+                                                                            color: Theme.of(context).cardColor,
+
                         ),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
@@ -1131,10 +1131,9 @@ class _DestinationPageState extends State<DestinationPage> {
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color:
-                              Theme.of(context).disabledColor.withOpacity(0.1),
-                        ),
+                          borderRadius: BorderRadius.circular(4),
+                                                                                 color: Theme.of(context).cardColor,
+),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 8, vertical: 5),
@@ -1401,9 +1400,9 @@ class _DestinationPageState extends State<DestinationPage> {
             children: [
               MyText(
                 text: AppLocalizations.of(context)!.searchPlaces,
-                textStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    color: Theme.of(context).disabledColor,
-                    fontWeight: FontWeight.w600),
+                textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    // color: Theme.of(context).disabledColor,
+                    fontWeight: FontWeight.bold),
                 maxLines: 1,
               ),
               SizedBox(height: size.width * 0.02),
@@ -1486,8 +1485,13 @@ class _DestinationPageState extends State<DestinationPage> {
                   );
                 },
                 separatorBuilder: (context, index) {
-                  return Divider(
-                      color: Theme.of(context).dividerColor.withOpacity(0.5));
+                  return          DottedLine( // ADDED: BY MG: Dotted line
+                                dashLength: 2,
+                                dashGapLength: 2,
+                                dashRadius: 1,
+                                lineThickness: 1,
+                                dashColor: Theme.of(context).dividerColor,
+                              );
                 },
               ),
               SizedBox(height: size.width * 0.15),
@@ -1498,18 +1502,23 @@ class _DestinationPageState extends State<DestinationPage> {
     );
   }
 
-  Container buildSelectFromMap(Size size, BuildContext context) {
+   buildSelectFromMap(Size size, BuildContext context) {
     return Container(
       height: size.width * 0.1,
-      width: double.infinity,
-      decoration: BoxDecoration(
-          color: Theme.of(context).scaffoldBackgroundColor,
-          boxShadow: [
-            BoxShadow(
-              offset: const Offset(0, -1),
-              color: Theme.of(context).shadowColor,
-            )
-          ]),
+      width: size.width*0.5,
+                                           padding: const EdgeInsets.all(1.0),
+                decoration: BoxDecoration(
+                                                       color: Theme.of(context).cardColor,
+
+                  borderRadius: BorderRadius.circular(2.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      blurRadius: 5,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
       child: InkWell(
         onTap: () {
           context.read<HomeBloc>().add(SelectFromMapEvent(
